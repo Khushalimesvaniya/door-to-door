@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "live-dinner", ".", "{028341C0-7A07-4212-8869-86B3B43B6850}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFramework = "3.5"
+		Debug.AspNetCompiler.VirtualPath = "/live-dinner"
+		Debug.AspNetCompiler.PhysicalPath = "E:\Project2\live-dinner\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\live-dinner\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/live-dinner"
+		Release.AspNetCompiler.PhysicalPath = "E:\Project2\live-dinner\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\live-dinner\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "53588"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{028341C0-7A07-4212-8869-86B3B43B6850}.Debug|.NET.ActiveCfg = Debug|.NET
+		{028341C0-7A07-4212-8869-86B3B43B6850}.Debug|.NET.Build.0 = Debug|.NET
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

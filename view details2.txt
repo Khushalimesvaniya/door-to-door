@@ -1,0 +1,144 @@
+<%@ Page Language="C#" MasterPageFile="~/MasterPage2.master" AutoEventWireup="true" CodeFile="details.aspx.cs" Inherits="details" Title="Untitled Page" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+
+<div>
+<asp:DataList ID="dlProducts" runat="server" RepeatColumns="4">
+    <HeaderTemplate>
+        <div>
+            <span>Item Details</span>
+    </HeaderTemplate>
+    <ItemTemplate>
+        <div style="border: 1px solid #000; padding: 5px; float: inherit; text-align: center;
+            text-decoration: none">
+            <asp:LinkButton ID="LinkButton1" Text='<%# Eval("i_name") %>' OnClick="ShowProductDetails"
+                runat="server" /></div>
+    </ItemTemplate>
+    <FooterTemplate>
+        </div>
+    </FooterTemplate>
+</asp:DataList>
+</div>
+<div>
+<table id="tblProduct" runat="server" border="0" cellpadding="0" cellspacing="0"
+    visible="false">
+    <tr>
+        <td colspan="2" style="text-align: center">
+            <asp:Label ID="Label1" Text="Item Details" runat="server" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:Label ID="Label2" Text="Item Id" runat="server" />
+        </td>
+        <td>
+            <asp:Label ID="lblProductId" runat="server" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:Label ID="Label3" Text="Item Name" runat="server" />
+        </td>
+        <td>
+            <asp:Label ID="lblProductName" runat="server" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:Label ID="Label4" Text="Item Price" runat="server" />
+        </td>
+        <td>
+            <asp:Label ID="lblProductPrice" runat="server" />
+        </td>
+    </tr>
+</table>
+</div>
+</asp:Content>
+
+
+
+
+//.cs file
+
+using System;
+using System.Collections;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+using System.Data.SqlClient;
+
+public partial class details : System.Web.UI.Page
+{
+    SqlConnection con;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=D:\live-dinner\App_Data\Database.mdf;Integrated Security=True;User Instance=True");
+        if (!this.IsPostBack)
+        {
+            this.GetProducts();
+        }
+    }
+    protected void ShowProductDetails(object sender, EventArgs e)
+    {
+        LinkButton i_name = (sender as LinkButton);
+        this.GetProductDetails(i_name.Text);
+        this.tblProduct.Visible = true;
+    }
+    private void GetProducts()
+    {
+        con.Open();
+        //using (SqlConnection con = new SqlConnection(constr))
+        //{
+        using (SqlCommand cmd = new SqlCommand("SELECT Top 10 i_name FROM items", con))
+        {
+            using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+            {
+                DataTable dtProducts = new DataTable();
+                sda.Fill(dtProducts);
+                this.dlProducts.DataSource = dtProducts;
+                this.dlProducts.DataBind();
+            }
+        }
+        //}
+    }
+    private void GetProductDetails(string productName)
+    {
+        con.Open();
+        //using (SqlConnection con =new SqlConnection(constr))
+        {
+            using (SqlCommand cmd = new SqlCommand("SELECT i_id,i_name,i_price FROM items WHERE i_name = @i_name", con))
+            {
+                cmd.Parameters.AddWithValue("@i_name", i_name);
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dtProduct = new DataTable();
+                    sda.Fill(dtProduct);
+                    foreach (DataRow product in dtProduct.Rows)
+                    {
+                        this.lblProductId.Text = product["i_id"].ToString();
+                        this.lblProductName.Text = product["i_name"].ToString();
+                        this.lblProductPrice.Text = product["i_price"].ToString();
+                    }
+                }
+            }
+            //  }
+        }
+    }
+}
+
+
+
+
+
+
+
